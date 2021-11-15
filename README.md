@@ -1,5 +1,5 @@
 # Food Prices Clustering
-
+The goal of this assignment was to perform single linkage and k-means clustering on food price data for different U.S. cities in the 1970s. As expected, single linkage clustering did not result in a great clustering fit. Because k-means utilizes euclidean distance, standardization was necessary to obtain the best clustering fit, as some of our food prices were three times the price of other food prices. The final standardized K-means clustering resulted in three clusters: cheap cities, expensive cities, and average cities.
 
 ### Readme Table of Contents
 * [Unstandardized Single Linkage Clustering](https://github.com/JaclynGlosson/Food-Prices-Clustering#unstandardized-single-linkage-clustering)
