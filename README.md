@@ -13,10 +13,10 @@
 * [Run K-means and analyze clusters]()
 * [Plot clusters]()
 * [Choose K and plot total ss]()
+* [Interpretation]()
+* [Plot clusters with PCA]()
+* [Standardized K Means Clustering]()
 * []()
-* []()
-
-
 
 # Unstandardized Single Linkage Clustering
 The goal of any clustering is to identify and characterize underlying subgroups between our individual observations. Single linkage clustering is considered hierarchical clustering which minimizes the euclidean distance between all points in the data set. An initial cluster is created from the points closest to each other. The nearest clusters are merged in a repetitive process until a single cluster is formed. Though this method is simple, there is no way to really check the quality of the clustering fit, and we cannot tailor it to specific criteria. <b> Therefore, I would do K-means clustering on this dataset if I had to pick between single linkage and k means. For purposes of exploration however, I explore the dataset using both single linkage and K means clustering.</b>
@@ -62,3 +62,20 @@ Without using PCA, it is difficult to represent the many dimensions concisely. B
 ![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/49f9ff7c4dde3126df6f1f554c9bf3edb8bce9c9/images/image18.png)
 
 Unlike single link clustering, I have a measure of how good multiple cluster solutions fit the data, as explained above. By looking at the sum of squares plot, I can identify which number of clusters to pick to best represent the data. K=3 gives a much lower sum of squares (4876.35.) than K=2. Considering that K=4 (tSS= 4286.475) lowers the SS simply by putting anchorage into a cluster by itself, K=3 gives the better interpretability, therefore I will utilize it in the standardized analysis. Note that either of these Tss are significantly lower than the single-linkage tss, which was 303,096. This speaks to the crude fit of the single linkage clustering, and the better fit of the K-means clustering.
+
+![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/32c2a6be9a2c1f5825ea3190d39e307eb3af54b3/images/image17.png)
+
+## Interpretation
+The centers are defined as the average price of all the cities of a particular food product in a particular cluster. I can see that the second cluster has the largest mean prices for each variable. Cluster 2 includes Anchorage, Honolulu, New York, and Philadelphia. These cities all have above average food prices, so I could call this cluster “expensive cities”. I can see from cluster 1 that the average prices are the lowest of all clusters- this cluster could be called “cheaper cities”. Finally, cluster three could be called “middle range cities” 
+
+## Plot clusters with PCA
+As I have 5 variables, I cannot plot all on a graph. Therefore I need to use a dimension reduction technique- PCA- in order to be able to represent all cities on a concise graph. Within this graph, colored data points represent clustering groups, and datapoint location will represent PCA. Because the first two PCs represent the highest amount of variation in the data, I utilize them in creating the graph. For PC1, I see that a high price of Hamburger is associated with a low value of PC1, since hamburgers have the largest variance in the data set it makes sense that the value is magnified on the first PC. All PC1 eigenvectors are negative, indicating it is akin to a price index. For PC2, I see that a high price of Butter is associated with a low value of PC2. Therefore, I relabel the PCs as “Hamburger Price” and “Butter Price” respectively. The high priced cities in cluster 2, Anchorage, Honolulu and Philadelphia can all be seen in the lower left quadrant, meaning they have high hamburger and butter prices. San Diego is seen on the lower far right, indicating low hamburger prices and high butter prices. However I see from the data this isn't necessarily true, as San Diego has butter price around the average price. I see Buffalo in the upper right, indicating a low price on hamburger price and low butter price. While Buffalo’s hamburger price is slightly below the average, it’s butter, apple, and tomato prices are all far below average (nearly two SD away when I look at standardized data). As butter, apple, and tomato prices are negative on PC2, this makes sense, and as PC1 is more of an index and all eigenvalues are negative, this also makes sense. Buffalo’s “outlier” status is due to its butter, apple, and tomato prices, not its hamburger prices. I see that there is definitely some distortion in the graph, and therefore standardization is necessary. The initial cluster names do seem to be true, as cluster 3 (orange) the middle range cluster is centered in the graph, and cluster 1 (green), the low priced cluster is at a higher PC1 value, indicating lower hamburger prices.
+
+![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/32c2a6be9a2c1f5825ea3190d39e307eb3af54b3/images/image15.png)
+
+![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/32c2a6be9a2c1f5825ea3190d39e307eb3af54b3/images/image22.png)
+
+# Standardized K Means Clustering
+
+
+
