@@ -16,7 +16,10 @@
 * [Interpretation]()
 * [Plot clusters with PCA]()
 * [Standardized K Means Clustering]()
-* []()
+* [Run k-means to analyze clusters]()
+* [Plot clusters]()
+* [Interpretation]()
+* [Plot clusters with PCA]()
 
 # Unstandardized Single Linkage Clustering
 The goal of any clustering is to identify and characterize underlying subgroups between our individual observations. Single linkage clustering is considered hierarchical clustering which minimizes the euclidean distance between all points in the data set. An initial cluster is created from the points closest to each other. The nearest clusters are merged in a repetitive process until a single cluster is formed. Though this method is simple, there is no way to really check the quality of the clustering fit, and we cannot tailor it to specific criteria. <b> Therefore, I would do K-means clustering on this dataset if I had to pick between single linkage and k means. For purposes of exploration however, I explore the dataset using both single linkage and K means clustering.</b>
@@ -76,6 +79,37 @@ As I have 5 variables, I cannot plot all on a graph. Therefore I need to use a d
 ![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/32c2a6be9a2c1f5825ea3190d39e307eb3af54b3/images/image22.png)
 
 # Standardized K Means Clustering
+Standardization is particularly helpful when one variable is on a much larger scale than the others. If these values are not standardized, the large variable will dominate the euclidean distance equation, and actually distort the cluster. When I did the initial data exploration, I saw that the average price of Butter (144.2) was three times the average price of apples (51.7). When I fail to standardize our variables, Butter will dominate the euclidean distance equation, and therefore I should analyze using standardized data. Likewise, I need to be mindful of outliers, such as Anchorage. One problem with the euclidean distance is that, because values are squared within the formula, outliers can dominate and distort clusters. Standardizing our data minimizes this distortion. <b> Finally, I will not repeat the single link clustering analysis, as the unstandardized analysis did not prove to be a good fit. </b>
+  
+![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/c6c71fc070111507e1030f6e261ff36de79083eb/images/image25.png)
+
+## Run k-means to analyze clusters
+As before, I run this analysis several times and examine the within sum of squares value. I want to minimize this in order to minimize the distances between each point. The lowest SS is 58.8, which is significantly lower than the unstandardized sum of squares. This is due to the standardization of the data and does not in of itself mean that this is a better analysis, since the SS is “lower”. Right away, I can see our cluster sizes have changed, and are 2, 12, and 10. Two of the variables from the cluster I had labeled “High price of bread, hamburger, and tomato” have moved.
 
 
+## Plot clusters
+
+![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/c6c71fc070111507e1030f6e261ff36de79083eb/images/image12.png)
+
+Though the above graph only captures two of the variables, I can see a similar pattern from the unstandardized data, with the high priced cities (cluster 2) in black indicating higher hamburger and bread prices in the upper right corner. I can see cluster 3 (red) the mid-range cities around the average (0) of the standardized hamburger prices, and I can see the lower priced cluster 1 (green) in the left hand corner, indicating a trend towards lower bread and hamburger prices.
+
+## Choose K and plot total ss
+The Total Sum of Squares graph remains proportionally the same, therefore I chose K=3 for the aforementioned reasons.
+
+## Interpretation
+Cluster one contains Anchorage and Honolulu, and has the highest cluster means, with all food prices being at least one standard deviation above the mean (tomato prices are roughly one standard deviation). I can label this “High priced cities”. Cluster 2 contains the “averaged priced cities”, and the cluster mean has food prices roughly around the mean (0) of all prices. Cluster three contains the “Lower priced cities”, as the cluster mean prices are all below average. Note that these group labels are akin to the unstandardized group labels. 
+
+## Plot clusters with PCA
+
+![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/c6c71fc070111507e1030f6e261ff36de79083eb/images/image13.png)
+
+![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/c6c71fc070111507e1030f6e261ff36de79083eb/images/image6.png)
+
+Immediately I can see a difference in eigenvalue magnitude between this PC analysis and the unstandardized one. Whereas hamburgers had a very large magnitude in PC1 unstandardized, PC1 standardized is much closer to a price index, with Bread and Hamburgers having a fair, yet not overbearing, magnitude. A high price of hamburger and bread is associated with a low value PC1.  PC2 has a very large magnitude for Apples. A high price of apples is associated with a high value of PC2.
+
+Cluster 1 (cheap cities/green): located in the upper right quartile, cluster 1 has a high Pc1 value indicating a low price of hamburger and bread. It has a dispersed, but somewhat higher PC2 value, indicating a slight trend towards high price of apples.
+
+Custer 2 (expensive cities/orange): located in the upper left quartile, cluster 2 has a low PC1 Value indicating high priced hamburgers and bread. It has a high PC2 value indicating high priced apples.
+
+Cluster 3(average cities/blue): Cluster 3 has an average PC1 value, indicating average hamburger and bread prices. It has a dispersed PC2 value, indicating some variation in apple prices. This makes some sense given most of the data falls in this cluster.
 
