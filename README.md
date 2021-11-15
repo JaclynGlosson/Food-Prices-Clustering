@@ -9,10 +9,10 @@
 * [Choose number of clusters]()
 * [Get cluster centers]()
 * [Calculate sum of total sum of squares]()
-* [Unstandardized K-Means Clustering](
-* []()
-* []()
-* []()
+* [Unstandardized K-Means Clustering]()
+* [Run K-means and analyze clusters]()
+* [Plot clusters]()
+* [Choose K and plot total ss]()
 * []()
 * []()
 
@@ -46,3 +46,19 @@ Notice that for cluster 2, these values are all extremely close to the mean for 
 Clusters 1,3, and 4 all have total sum of squares of zero, which makes perfect sense given that they all contain one city’s data. Therefore, there is no “residual” between data points with which to square. Cluster two has a sum of squares of 303096, and given that this cluster contains all but 3 observations, the fit is not very good, thus the SS is large. The total SS is 303,096 for the entire analysis - again not a great fit. 
 
 # Unstandardized K-Means Clustering
+
+![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/49f9ff7c4dde3126df6f1f554c9bf3edb8bce9c9/images/image23.png)
+
+## Run K-means and analyze clusters
+Unlike single linkage, K means clustering is not a hierarchical clustering. Clusters are calculated by picking random cluster center points, calculating for each datapoint the nearest center point, calculating the centroid of the resulting cluster by averaging datapoint values, and repeating the process until centroids are stable.The advantage of K means is that it allows us to cluster a larger amount of data than the single linkage method. It also allows us to calculate a number of best “fit” of the clusters. By calculating the sum of squares, I am able to achieve this measure of cluster fit. Sum of squares is calculated by subtracting the average value of all data points within a cluster from each individual data point (the residual), squaring the value, and adding up all these squared residuals. By adding each cluster’s value together, I create a number to be minimized for optimal fit. There is much more variation in the clusters using K means than from single linkage- all but one cluster has more than one city, unlike single linkage. When I run K means using 4 clusters, the solution with the lowest sum of squares has a cluster with only one city in it (Anchorage). By looking at the Sum of Squares plot (below) I can see that three clusters would still give a low sum of squares, and then I would eliminate having one cluster with only one city. I re-run the K means using 3 clusters. When I run this three cluster K means the first time, I get a within sum of squares of 4876.35. However, I must re-run the code several times to verify this is the smallest SS possible. This is because clustering can change slightly depending on where the initial random cluster centers are placed- and if outlier points are chosen, the SS could be large. After running the code several times, I see that this is the smallest SS that I can expect to get. The cluster sizes are 9, 4, and 11; respectively.
+
+## Plot clusters
+Without using PCA, it is difficult to represent the many dimensions concisely. By plotting every single variable against one another, I create 10 distinct graphs. I can see that cluster 2 (red,  Anchorage, Honolulu, New York, and Philadelphia) varies in density with different variables. For instance, the cluster is close in the Hamburger/Tomato plot, but is dispersed in the Apples/Tomato plot. This is backed up by the correlation matrix, where Hamburger/Tomato has a correlation of .56, and Apples/Tomato has a correlation of .13. The graphs allow me to visually see that for cluster 2, hamburgers and tomato prices are more related than hamburger and apple prices. For cluster 1 (black; includes St Louis, San Diego, Buffalo, Los Angeles... all lower price cities), I can see a difference in cluster density between Bread/Tomato than Hamburger/Butter, indicating that for Cluster 1, bread and tomato prices are more related than hamburger and butter prices. Again this is backed up by the correlation matrix, where bread/tomato have a correlation of .36 and hamburger/butter have a correlation of .24.
+
+![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/49f9ff7c4dde3126df6f1f554c9bf3edb8bce9c9/images/image4.png)
+
+## Choose K and plot total ss
+
+![](https://github.com/JaclynGlosson/Food-Prices-Clustering/blob/49f9ff7c4dde3126df6f1f554c9bf3edb8bce9c9/images/image18.png)
+
+Unlike single link clustering, I have a measure of how good multiple cluster solutions fit the data, as explained above. By looking at the sum of squares plot, I can identify which number of clusters to pick to best represent the data. K=3 gives a much lower sum of squares (4876.35.) than K=2. Considering that K=4 (tSS= 4286.475) lowers the SS simply by putting anchorage into a cluster by itself, K=3 gives the better interpretability, therefore I will utilize it in the standardized analysis. Note that either of these Tss are significantly lower than the single-linkage tss, which was 303,096. This speaks to the crude fit of the single linkage clustering, and the better fit of the K-means clustering.
